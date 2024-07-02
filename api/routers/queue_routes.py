@@ -59,14 +59,6 @@ class TestQueue:
         else:
             raise HTTPException(status_code=404, detail=f"No messages.")
 
-    @test_queue_router.get("/list_all")
-    @http_exception_handler
-    async def list_all_queue_data(self, db: AsyncSession = Depends(get_db), pagination: Optional[PaginationParams] = Depends(PaginationParams)):
-
-        total_count, page_size, page_number, messages = await QueueDB.list_all(db, pagination)
-
-        return {"total_count": total_count, "page_size": page_size, "page_number": page_number, "messages": messages}
-
     @test_queue_router.post("/list")
     @http_exception_handler
     async def list_queue_data(self, query_data: Optional[QueueQuery] = Body(None), db: AsyncSession = Depends(get_db), pagination: Optional[PaginationParams] = Depends(PaginationParams)):
