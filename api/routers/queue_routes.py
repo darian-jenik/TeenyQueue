@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi_restful.cbv import cbv
 from api.validators import PublishQueue, QueueQuery, SubscribeQueue
 from sqlalchemy.ext.asyncio import AsyncSession
-from fastapi.params import Depends
+from fastapi.params import Depends, Body
 from api.db.core import get_db
 from api.db.queue_db import QueueDB
 from sqlalchemy.exc import InterfaceError, OperationalError
@@ -69,7 +69,7 @@ class TestQueue:
 
     @test_queue_router.post("/list")
     @http_exception_handler
-    async def list_queue_data(self, query_data: QueueQuery, db: AsyncSession = Depends(get_db), pagination: Optional[PaginationParams] = Depends(PaginationParams)):
+    async def list_queue_data(self, query_data: Optional[QueueQuery] = Body(None), db: AsyncSession = Depends(get_db), pagination: Optional[PaginationParams] = Depends(PaginationParams)):
 
         total_count, page_size, page_number, messages = await QueueDB.list(db, query_data, pagination)
 

@@ -2,7 +2,7 @@
 
 ref: RnM
 
-(if you know you know)
+(if you know, you know)
 
 ---
 
@@ -37,7 +37,7 @@ Also the timezones don't work in the tests.  It's on the list to fix one day may
 
 ### Pagination
 
-The endpoints /list and /list_all have optional pagination parameters.
+The endpoints /list has optional pagination parameters.
 
 e.g.
 

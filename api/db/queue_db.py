@@ -169,42 +169,13 @@ class QueueDB(QueueDBModel):
             else:
                 conditions.append(cls.delivered_at == None)
 
-        total_count_query = select(func.count()).where(and_(*conditions))
+        total_count_query = select(func.count()).select_from(cls).where(and_(*conditions))
         total_count_result = await db.execute(total_count_query)
         total_count = total_count_result.scalar_one()
 
         offset = (pagination.page_number - 1) * pagination.page_size
 
         query = select(cls).where(and_(*conditions)).limit(pagination.page_size).offset(offset)
-        result = await db.execute(query)
-        rows = result.scalars().all()
-
-        messages = []
-        for row in rows:
-            message = {c.key: getattr(row, c.key) for c in class_mapper(row.__class__).columns}
-            clean_message = {k: v for k, v in message.items() if v is not None}
-
-            if '_authentication_key' in clean_message.keys():
-                del clean_message['_authentication_key']
-
-            if 'message_body' in clean_message.keys():
-                del clean_message['message_body']
-
-            if 'has_authentication' in clean_message.keys() and clean_message['has_authentication'] is False:
-                del clean_message['has_authentication']
-
-            messages.append(clean_message)
-
-        return total_count, pagination.page_size, pagination.page_number, messages
-
-    @classmethod
-    async def list_all(cls, db: AsyncSession, pagination: PaginationParams):
-
-        result = await db.execute(select(func.count()).select_from(cls))
-        total_count = result.scalar_one()
-
-        offset = (pagination.page_number - 1) * pagination.page_size
-        query = select(cls).limit(pagination.page_size).offset(offset)
         result = await db.execute(query)
         rows = result.scalars().all()
 
