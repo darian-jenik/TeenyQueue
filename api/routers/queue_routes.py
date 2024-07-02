@@ -62,6 +62,8 @@ class TestQueue:
     @test_queue_router.post("/list")
     @http_exception_handler
     async def list_queue_data(self, query_data: Optional[QueueQuery] = Body(None), db: AsyncSession = Depends(get_db), pagination: Optional[PaginationParams] = Depends(PaginationParams)):
+        if query_data is None:
+            query_data = QueueQuery()
 
         total_count, page_size, page_number, messages = await QueueDB.list(db, query_data, pagination)
 
