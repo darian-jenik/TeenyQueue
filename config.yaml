@@ -1,0 +1,20 @@
+# config.yaml
+#
+startup:
+  module_name: TEENYQUEUE                   # required
+  # run_id: 0701194357_6yxviryy_TEENYQUEUE  # Just and example, can inherit this from other modules, else will make own.
+  debug: False                              # Everything is logged as Info unless debug  true
+# logging:
+  # local_log_dir: "./logs/"
+  # log_level: "INFO"                       # Default
+  # log_filename: "main.log"                # Default
+config:                                     # Application config
+  host: '0.0.0.0'
+  port: 8000
+  default_page_size: 1000
+postgres:
+  queue:
+    host: 'localhost'
+    port: 5432
+    user: 'queue_user'
+    password: $POSTGRES_PASSWD

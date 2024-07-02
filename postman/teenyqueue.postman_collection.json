@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "e2526af2-ef6a-43ab-9bbd-7ea47dc92920",
+		"name": "teenyqueue",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "11507062"
+	},
+	"item": [
+		{
+			"name": "PUB",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pub_module_name\": \"module1\",\n    \"topic\": \"queue1\",\n    \"message_body\": {\n        \"key\": \"test value\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/pub"
+			},
+			"response": []
+		},
+		{
+			"name": "SUB",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sub_module_name\": \"module3\",\n    \"topic\": \"queue1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/sub"
+			},
+			"response": []
+		},
+		{
+			"name": "LIST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"delivered_at\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/list"
+			},
+			"response": []
+		},
+		{
+			"name": "LIST ALL",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/list_all"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE_DELIVERED",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8000/delete_delivered"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE_ALL",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8000/delete_all"
+			},
+			"response": []
+		}
+	]
+}
