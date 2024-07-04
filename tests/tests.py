@@ -5,13 +5,19 @@
 # Also, the time tests are borked.  I'll get around to fixing them if there is an actual reason...
 
 import pytest
+import os
 from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+os.chdir(parent_dir)
+
 from api import app
 from api.db.core import get_db
 from api.db.models import Base
 # from datetime import datetime, timedelta, timezone
 # import asyncio
+
 
 from test_cases import (
     pub_test_cases,
