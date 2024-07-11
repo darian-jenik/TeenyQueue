@@ -24,8 +24,39 @@ loggingConfig = {
             }
         },
     'loggers': {
+            'tqlogger': {
+                'class': 'TQCustomLogger',
+                'level': 'INFO',
+                'handlers': [],
+                'propagate': True
+            },
+            'uvicorn': {
+                'class': 'TQCustomLogger',
+                'level': 'INFO',
+                'handlers': [],
+                'propagate': False
+            },
+            'uvicorn.error': {
+                'class': 'TQCustomLogger',
+                'level': 'INFO',
+                'handlers': [],
+                'propagate': False
+            },
+            'uvicorn.access': {
+                'class': 'TQCustomLogger',
+                'level': 'INFO',
+                'handlers': [],
+                'propagate': False
+            },
+            'fastapi': {
+                'class': 'TQCustomLogger',
+                'level': 'INFO',
+                'handlers': [],
+                'propagate': False
+            },
         },
     'root': {
+        'class': 'TQCustomLogger',
         'level': LOG_LEVEL,
         'handlers': ['console']
         }

@@ -19,7 +19,7 @@ from logging.config import dictConfig
 import logging
 
 from config.log_configuration import loggingConfig, LOG_FORMAT
-from config.custom_logger import CustomLogger
+from config.custom_logger import TQCustomLogger
 
 
 class TQExceptionStop(Exception):
@@ -66,9 +66,9 @@ class TQEnvironment:
         self.log_level = "INFO"
         self.RUNID = 'TEENYQUEUE'
 
-        logging.setLoggerClass(CustomLogger)
+        logging.setLoggerClass(TQCustomLogger)
         dictConfig(loggingConfig)
-        self.log = logging.getLogger('root')
+        self.log = logging.getLogger('tqlogger')
 
         self.log.info('Initializing environment.')
 
@@ -104,7 +104,7 @@ class TQEnvironment:
             if self.logging.get('log_level', None):
                 log_level = self.logging['log_level'].upper()
 
-            logger = logging.getLogger('root')
+            logger = logging.getLogger('tqlogger')
             logger.setLevel(getattr(logging, log_level))
             for handler in logger.handlers:
                 handler.setLevel(log_level)
@@ -119,10 +119,11 @@ class TQEnvironment:
 
             file_handler.setFormatter(logging.Formatter(LOG_FORMAT))
 
-            logger = logging.getLogger('root')
-            logger.addHandler(file_handler)
+            for logger in loggingConfig['loggers'].keys():
+                logger = logging.getLogger(logger)
+                logger.addHandler(file_handler)
 
-            CustomLogger._log_header = f'[{self.RUNID}]'
+            TQCustomLogger._log_header = f'[{self.RUNID}]'
             self.log.debug(f'log_file: {log_file=} is now logging.')
 
     # ---------------------------------------------------------------------------------------------

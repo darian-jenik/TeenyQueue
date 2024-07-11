@@ -13,8 +13,10 @@ if __name__ == "__main__":
     config = Config(app=app,
                     log_config=None,
                     host=env.config['host'],
-                    port=env.config['port'], )
+                    port=env.config['port'],
+                    )
 
+    # config.logger = log
     server = Server(config=config)
 
     log.info('Starting server.')

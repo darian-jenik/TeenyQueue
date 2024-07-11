@@ -3,7 +3,7 @@
 import logging
 
 
-class CustomLogger(logging.Logger):
+class TQCustomLogger(logging.Logger):
     _log_header = '[]'
 
     def __init__(self, name, level=logging.NOTSET):
@@ -11,7 +11,7 @@ class CustomLogger(logging.Logger):
 
     def debug(self, msg, *args, **kwargs):
         msg = f'{self._log_header}: {msg}'
-        super().warning(msg, *args, **kwargs)
+        super().debug(msg, *args, **kwargs)
 
     # Access and other broadcasts.
     def info(self, msg, *args, **kwargs):
@@ -31,7 +31,7 @@ class CustomLogger(logging.Logger):
     # Stacktrace
     def critical(self, msg, *args, **kwargs):
         msg = f'{self._log_header}: {msg}'
-        super().error(msg, *args, **kwargs)
+        super().critical(msg, *args, **kwargs)
 
 
 # end
